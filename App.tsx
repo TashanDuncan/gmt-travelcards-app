@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import UserDetails from "./UserDetails";
+import UserDetails from "./components/UserDetails/UserDetails";
 import styles from "./styles";
 
 export default function App() {

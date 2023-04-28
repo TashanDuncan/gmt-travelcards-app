@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text } from "react-native";
 import { Input, Button } from "react-native-elements";
-import styles from "./styles";
+import styles from "../../styles";
 
 export default function UserDetails() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
