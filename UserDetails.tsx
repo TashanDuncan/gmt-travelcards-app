@@ -4,16 +4,16 @@ import { Input, Button } from "react-native-elements";
 import styles from "./styles";
 
 export default function UserDetails() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [response, setResponse] = useState(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [response, setResponse] = useState<string | null>(null);
 
-  const handleEmailChange = (value) => {
+  const handleEmailChange = (value: string) => {
     setEmail(value);
   };
 
-  const handlePasswordChange = (value) => {
+  const handlePasswordChange = (value: string) => {
     setPassword(value);
   };
 

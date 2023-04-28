@@ -1,11 +1,14 @@
 import { StyleSheet } from "react-native";
 
-export default styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
+  },
+  response: {
+
   },
   input: {
     width: "80%",
@@ -15,3 +18,5 @@ export default styles = StyleSheet.create({
     width: "80%",
   },
 });
+
+export default styles
