@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Text } from "react-native";
 import { Input, Button } from "react-native-elements";
+import axios from 'axios';
 import styles from "../../styles";
 
 export default function UserDetails() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("tay.duncan@autotrader.co.uk");
+  const [password, setPassword] = useState<string>("fWGN@6TbnJ5$");
   const [response, setResponse] = useState<string | null>(null);
 
   const handleEmailChange = (value: string) => {
@@ -23,17 +24,14 @@ export default function UserDetails() {
     console.log("Password:", password);
 
     // TODO: Fetch info from puppeteer using email and password as params
-    fetch("https://functions-hello-world-l2q3k3zknq-ew.a.run.app", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
+    axios({
+      method: "post",
+      url: 'https://functions-hello-world-l2q3k3zknq-ew.a.run.app',
+      data:{ email, password },
     })
-      .then((response) => response.text())
-      .then((responseText) => {
-        console.log(responseText);
-        setResponse(responseText);
+      .then((response) => {
+        console.log(response.data);
+        setResponse(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -77,7 +75,7 @@ export default function UserDetails() {
 
       {!!response && (
         <Text style={styles.response}>
-          Response: {JSON.stringify(response)}
+          Response: {response}
         </Text>
       )}
     </>
