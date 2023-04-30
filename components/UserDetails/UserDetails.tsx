@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { Text } from "react-native";
+import React, { useContext, useState } from "react";
+import { Text, View } from "react-native";
 import { Input, Button } from "react-native-elements";
-import axios from 'axios';
+import axios from "axios";
 import styles from "../../styles";
+import UserContext from "../../UserContext";
 
 export default function UserDetails() {
+  const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("tay.duncan@autotrader.co.uk");
   const [password, setPassword] = useState<string>("fWGN@6TbnJ5$");
@@ -26,11 +28,12 @@ export default function UserDetails() {
     // TODO: Fetch info from puppeteer using email and password as params
     axios({
       method: "post",
-      url: 'https://functions-hello-world-l2q3k3zknq-ew.a.run.app',
-      data:{ email, password },
+      url: "https://functions-hello-world-l2q3k3zknq-ew.a.run.app",
+      data: { email, password },
     })
       .then((response) => {
         console.log(response.data);
+        setUser({ email, password });
         setResponse(response.data);
       })
       .catch((error) => {
@@ -42,7 +45,7 @@ export default function UserDetails() {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -73,11 +76,7 @@ export default function UserDetails() {
         </>
       )}
 
-      {!!response && (
-        <Text style={styles.response}>
-          Response: {response}
-        </Text>
-      )}
-    </>
+      {!!response && <Text style={styles.response}>Response: {response}</Text>}
+    </View>
   );
 }
