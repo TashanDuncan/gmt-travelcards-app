@@ -37,7 +37,7 @@ export default function TravelCards() {
               setIsLoading(false);
             })
             .catch((error) => {
-              setError(error);
+              setError("Something went wrong 😞");
               console.error(error);
             });
         } else {
