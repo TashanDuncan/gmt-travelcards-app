@@ -8,13 +8,16 @@ import {
   NavigationProp,
   ParamListBase,
 } from "@react-navigation/native";
+import { storeUserData } from "../../utils/StorageUtils";
+import CheckBox from "expo-checkbox";
 
 export default function UserDetails() {
-  let navigation: NavigationProp<ParamListBase> = useNavigation();
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
 
   const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState<string>("tay.duncan@autotrader.co.uk");
   const [password, setPassword] = useState<string>("fWGN@6TbnJ5$");
+  const [isSaveSelected, setIsSaveSelected] = useState<boolean>(true);
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
@@ -27,13 +30,23 @@ export default function UserDetails() {
   const handleSubmit = async () => {
     console.log("Email:", email);
     console.log("Password:", password);
+    if (isSaveSelected) {
+      try {
+        await storeUserData("email", email);
+        await storeUserData("password", password);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     setUser({ email, password });
     navigation.navigate("Travel Cards");
   };
 
   return (
     <View style={styles.container}>
-      <Text>Enter Your GetMeThere Account Details</Text>
+      <Text style={styles.instructions}>
+        Enter Your GetMeThere Account Details
+      </Text>
       <Input
         label="Email"
         placeholder="Enter your email"
@@ -51,6 +64,15 @@ export default function UserDetails() {
         secureTextEntry
         containerStyle={styles.input}
       />
+      <View style={styles.checkboxContainer}>
+        <Text style={styles.label}>Save Details?</Text>
+        <CheckBox
+          value={isSaveSelected}
+          onValueChange={setIsSaveSelected}
+          style={styles.checkbox}
+        />
+      </View>
+
       <Button
         title="Submit"
         onPress={handleSubmit}

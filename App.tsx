@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState<UserInterface>({} as UserInterface);
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <NavigationContainer>

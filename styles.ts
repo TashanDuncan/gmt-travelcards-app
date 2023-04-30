@@ -7,9 +7,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  response: {
-
-  },
+  instructions: { marginBottom: 10 },
+  response: {},
   input: {
     width: "80%",
     marginBottom: 20,
@@ -17,6 +16,16 @@ const styles = StyleSheet.create({
   button: {
     width: "80%",
   },
+  checkboxContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
+  label: {
+    margin: 8,
+  },
 });
 
-export default styles
+export default styles;
