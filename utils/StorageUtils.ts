@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { UserInterface } from "../UserContext";
 
 export const storeUserData = async (key: string, value: string) => {
   try {

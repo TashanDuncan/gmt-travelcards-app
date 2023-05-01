@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import styles from "../../styles";
-import { UserContext } from "../../UserContext";
+import { UserContext, UserInterface } from "../../UserContext";
 import {
   useNavigation,
   NavigationProp,
   ParamListBase,
   useFocusEffect,
 } from "@react-navigation/native";
-import { getTravelCards } from "../../utils/ApiRequests";
 import { getUserData } from "../../utils/StorageUtils";
+import axios from "axios";
 
 export default function TravelCards() {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
@@ -20,6 +20,23 @@ export default function TravelCards() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<string | null>(null);
 
+  const getTravelCards = (user: UserInterface) => {
+    // return axios({
+    //   method: "post",
+    //   url: "https://functions-hello-world-l2q3k3zknq-ew.a.run.app",
+    //   data: { email: user.email, password: user.password },
+    // })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     setResponse(response.data);
+    //     setIsLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     setError("Something went wrong 😞");
+    //     console.error(error);
+    //   });
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       const getData = () => {
@@ -28,30 +45,11 @@ export default function TravelCards() {
           setIsLoading(true);
           const savedEmail = await getUserData("email");
           const savedPassword = await getUserData("password");
-          console.log(savedEmail);
+
           if (!!savedEmail && !!savedPassword) {
-            console.log("Saved Setting Call");
-            getTravelCards({ email: savedEmail, password: savedPassword })
-              .then((response) => {
-                console.log(response.data);
-                setResponse(response.data);
-                setIsLoading(false);
-              })
-              .catch((error) => {
-                setError("Something went wrong 😞");
-                console.error(error);
-              });
+            getTravelCards({ email: savedEmail, password: savedPassword });
           } else if (!!email && !!password) {
-            getTravelCards({ email, password })
-              .then((response) => {
-                console.log(response.data);
-                setResponse(response.data);
-                setIsLoading(false);
-              })
-              .catch((error) => {
-                setError("Something went wrong 😞");
-                console.error(error);
-              });
+            getTravelCards({ email, password });
           } else {
             setError("Please Provide Email & Password");
             setIsLoading(false);
